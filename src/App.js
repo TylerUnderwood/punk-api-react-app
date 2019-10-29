@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import UserLiked from '.components/UserLiked'
+import UserLiked from './components/UserLiked'
 
 function App() {
   return (
@@ -12,9 +12,7 @@ function App() {
           We gunna like some beers today.
         </p>
 
-		<ul className="beers-list">
-			<li>Beer<button>Like</button></li>
-		</ul>
+		<UserLiked />
       </header>
     </div>
   );
