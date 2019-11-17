@@ -1,21 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import UserLiked from './components/UserLiked'
+import Beers from './components/Beers'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          We gunna like some beers today.
-        </p>
-
-		<UserLiked />
-      </header>
-    </div>
-  );
+	return (
+		<section className="frame gutter">
+			<div className="wrapper">
+				<h3>We gunna like some beers today</h3>
+				<div className="frame-top">
+					<Beers />
+				</div>
+			</div>
+		</section>
+	);
 }
 
 export default App;
