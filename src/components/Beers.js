@@ -5,7 +5,8 @@ export class Beers extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			beers: []
+			beers: [],
+			userLiked: {}
 		}
 	}
 
@@ -21,32 +22,50 @@ export class Beers extends Component {
 			.then( beers => this.setState({
 				beers,
 			}))
-			.catch( error => console.log("parsing failed", error) )
+			.catch( error => console.log( error ) )
 	}
 
 	componentDidMount() {
 		this.fetchData();
 	}
 
-	render() { return (
+	likeBeer( beerId ) {
+		let newLiked = {...this.state.userLiked}
+		newLiked[beerId] = !newLiked[beerId]
+		this.setState({ userLiked: newLiked })
+	}
+
+	render() { 
+
+		let { beers, userLiked } = this.state;
+
+		return (
 
 		<ul className="beers-list">
-			{ this.state.beers.map(( beer ) => (
+			{ beers.map(( beer ) => (
 
-				<li key={beer.name} className="beer-card m-t">
+				<li key={beer.name} className="beer-card">
 					<div className="beer-details">
 						<h5 className="name-line">{beer.name}</h5>
-						<span className="tagline-line">Tagline: {beer.tagline}</span><br/>
-						<span className="abv-line">ABV: {beer.abv}</span><br/>
-						<span className="ibu-line">IBU: {beer.ibu}</span><br/>
+						<span className="tagline-line"><strong>Tagline:</strong> {beer.tagline}</span><br/>
+						<span className="abv-line"><strong>ABV:</strong> {beer.abv}</span><br/>
+						<span className="ibu-line"><strong>IBU:</strong> {beer.ibu}</span><br/>
 					</div>
-					<button className="btn m-t" onclick="likeClicked()">Like</button>
+					<button 
+						className={[
+							'btn', 
+							userLiked[beer.name] ? "active" : null,
+						].join(' ')} 
+						onClick={() => this.likeBeer( beer.name )}>
+						{userLiked[beer.name] ? "Liked" : "Like"}
+					</button>
 				</li>
 
 			))}
 		</ul>
 
-	)}
+		)
+	}
 }
 
 export default Beers;
